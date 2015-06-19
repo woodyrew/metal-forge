@@ -11,9 +11,11 @@
   "license": "ISC",
   "dependencies": {
     "contentful": "^1.1.1",
+    "contentful-metalsmith": "^0.1.0",
     "handlebars": "^3.0.3",
     "metalsmith": "^1.7.0",
     "metalsmith-collections": "^0.7.0",
+    "metalsmith-debug": "0.0.2",
     "metalsmith-less": "^2.0.0",
     "metalsmith-markdown": "^0.2.1",
     "metalsmith-permalinks": "^0.4.0",

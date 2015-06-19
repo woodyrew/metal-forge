@@ -1,17 +1,20 @@
 var Metalsmith  = require('metalsmith');
+var debug       = require('metalsmith-debug');
 var markdown    = require('metalsmith-markdown');
 var templates   = require('metalsmith-templates');
 var collections = require('metalsmith-collections');
 var permalinks  = require('metalsmith-permalinks');
 var less        = require('metalsmith-less');
 var webpack     = require('metalsmith-webpack');
+var contentful  = require('contentful-metalsmith');
 
 var Handlebars  = require('handlebars');
 var fs          = require('fs');
 var path        = require('path');
 
+var apis        = require('./api_keys.json');
 
-var logem = function(files, metalsmith, done) {
+var log = function(files, metalsmith, done) {
     for (var file in files) {
     	console.log(file);
     }
@@ -51,45 +54,55 @@ var removeSource = function(config) {
     };
 };
 
+Handlebars.registerHelper("log", function(something) {
+  console.log(something);
+});
+
+console.log(apis.contentful);
+
 Metalsmith(__dirname)
 	.source('./src')
-	.use(less({
-		pattern: 'styles/*.less'
-	}))
-    .use(removeSource({
-        pattern: '\.less$'
-    }))
-    .use(webpack({
-		context: path.resolve(__dirname, './src/js/'),
-		entry: './index.js',
-		output: {
-			path: path.resolve(__dirname, './site/js/'),
-			filename: 'bundle.js'
-		}
-	}))
-    .use(removeSource({
-        pattern: '\.js$',
-        keep: 'bundle\.js$'
-    }))
-	.use(findTemplate({
-        pattern: 'posts',
-        templateName: 'post.hbs'
-    }))
-	.use(collections({
-		pages: {
-			pattern: 'content/pages/*.md'
-		},
-		posts: {
-			pattern: 'content/posts/*.md',
-			sortBy: 'date',
-			reverse: true
-		}
-	}))
+	.use(debug())
+	// .use(less({
+	// 	pattern: 'styles/*.less'
+	// }))
+ //    .use(removeSource({
+ //        pattern: '\.less$'
+ //    }))
+ //    .use(webpack({
+	// 	context: path.resolve(__dirname, './src/js/'),
+	// 	entry: './index.js',
+	// 	output: {
+	// 		path: path.resolve(__dirname, './site/js/'),
+	// 		filename: 'bundle.js'
+	// 	}
+	// }))
+ //    .use(removeSource({
+ //        pattern: '\.js$',
+ //        keep: 'bundle\.js$'
+ //    }))
 	.use(markdown())
-	.use(logem)
-	.use(permalinks({
-		pattern: ':collection/:title'
-	}))
+    .use(contentful({
+    	accessToken: apis.contentful.accessToken
+    }))
+	// .use(findTemplate({
+ //        pattern: 'posts',
+ //        templateName: 'post.hbs'
+ //    }))
+	// .use(collections({
+	// 	pages: {
+	// 		pattern: 'content/pages/*.md'
+	// 	},
+	// 	posts: {
+	// 		pattern: 'content/posts/*.md',
+	// 		sortBy: 'date',
+	// 		reverse: true
+	// 	}
+	// }))
+	// .use(log)
+	// .use(permalinks({
+	// 	pattern: ':collection/:title'
+	// }))
 	.use(templates({
 		engine: 'handlebars',
 		directory: 'templates',

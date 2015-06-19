@@ -2,11 +2,11 @@ var contentful  = require('contentful');
 var config = require('./api_keys.json').contentful;
 
 var client = contentful.createClient({
-  // ID of Space
-  space: config.space,
-
   // A valid access token within the Space
   accessToken: config.accessToken,
+
+  // ID of Space
+  space: config.spaces.pages.id,
 
   // Enable or disable SSL. Enabled by default.
   secure: true

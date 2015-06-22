@@ -12,7 +12,7 @@
 {
 	"contentful": {
 		"space": "{your_space_here}",
-		"accessToken": "{your_key_here}"
+		"accessToken": "{your_key_here}",
 		"spaces": {
 			"{name_of_space}": {
 				"id": "{your_space_here}",

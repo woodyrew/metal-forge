@@ -1,0 +1,5 @@
+{
+  "ignore": ["site/*,store/*"],
+  "ext": "js,less,json,hbs,md",
+  "delay": "200ms"
+}

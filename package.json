@@ -1,13 +1,13 @@
 {
-  "name": "metalsmith_test",
-  "version": "1.0.0",
-  "description": "",
+  "name": "metal-forge",
+  "description": "Deployment tool getting data from Contenful, Building a static site and serving with HAPI",
+  "version": "0.1.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "private": true,
-  "author": "",
+  "author": "Woody",
   "license": "ISC",
   "dependencies": {
     "contentful": "^1.1.1",

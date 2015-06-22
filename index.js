@@ -12,7 +12,7 @@ var Handlebars  = require('handlebars');
 var fs          = require('fs');
 var path        = require('path');
 
-var apis        = require('./api_keys.json');
+var apis        = require('./config.json');
 
 var log = function(files, metalsmith, done) {
     for (var file in files) {

@@ -34,3 +34,7 @@ store/*
 
 # build codebase
 builder/*
+
+# static content
+site
+public

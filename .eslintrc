@@ -4,10 +4,17 @@
     "node": true
   },
   "rules": {
-    "valid-jsdoc": 2,
-    "quotes": [
+    "valid-jsdoc": [
       1,
-      "double",
+      {
+        "requireParamDescription": false,
+        "requireReturnDescription": false
+      }
+    ],
+    "no-cond-assign": 1,
+    "quotes": [
+      2,
+      "single",
       "avoid-escape"
     ],
     "comma-style": [
@@ -26,7 +33,7 @@
       2,
       {
         "align": "colon",
-        "beforeColon": true,
+        "beforeColon": false,
         "afterColon": true
       }
     ],

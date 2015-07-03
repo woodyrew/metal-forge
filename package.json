@@ -2,7 +2,7 @@
   "name": "metal-forge",
   "description": "Deployment tool getting data from Contenful, Building a static site and serving with HAPI",
   "version": "0.1.0",
-  "main": "update_codebase.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,8 +13,10 @@
     "async": "^1.2.1",
     "contentful": "^1.1.1",
     "contentful-metalsmith": "^0.1.0",
+    "debug": "^2.2.0",
     "handlebars": "^3.0.3",
     "hapi": "^8.6.1",
+    "hapi-auth-basic": "^2.0.0",
     "metalsmith": "^1.7.0",
     "metalsmith-collections": "^0.7.0",
     "metalsmith-debug": "0.0.2",

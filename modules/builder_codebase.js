@@ -1,6 +1,6 @@
 var cmd    = require('child_process');
-// var async  = require("async");
-
+var path   = require('path');
+var moment = require('moment');
 var config = require('../config.json').builder;
 
 var cd = 'cd ' + config.path + ' && ';
@@ -64,7 +64,21 @@ var build = function (callback) {
 var show_site = function (callback) {
     'use strict';
     var comment = 'Show the files that were built';
-    var command = cd + 'tree ./site';
+    var command = 'tree ./site';
+
+    run_command(comment, command, callback);
+};
+
+var copy_to_serve = function (callback) {
+    'use strict';
+    var comment = 'Copy files to serve';
+
+    var now = moment().format('YYYY-MM-DD_HH-mm');
+    var dest_path = path.resolve(__dirname, '../site/' + now);
+    var live_path = path.resolve(__dirname, '../site/live');
+    var command = 'mkdir -p ' + dest_path + ' && cp -R ' + config.path + 'site/* ' + dest_path;
+    command += ' && ln -s ' + dest_path + ' ' + live_path;
+    console.log('command', command);
 
     run_command(comment, command, callback);
 };
@@ -72,9 +86,10 @@ var show_site = function (callback) {
 
 
 module.exports = {
-    check    : check
-  , pull     : pull
-  , npm      : npm
-  , build    : build
-  , show_site: show_site
+    check        : check
+  , pull         : pull
+  , npm          : npm
+  , build        : build
+  , show_site    : show_site
+  , copy_to_serve: copy_to_serve
 };

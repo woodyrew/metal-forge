@@ -12,9 +12,38 @@ var port   = process.env.PORT || 5000;
 
 server.connection({ port: port });
 
-var trigger_build = function (webhook_name) {
+var trigger_build = function (webhook_name, config) {
     'use strict';
-    console.log('Geddon, building... %s', webhook_name);
+    log('Building... Triggered by %s', webhook_name);
+
+    var async  = require('async');
+    var codebase = require('./modules/builder_codebase');
+    var contentful_to_files = require('./modules/contentful_to_files');
+
+    var fetch_latest_json = function (callback) {
+        var process_files = contentful_to_files(config.contentful);
+        process_files(callback);
+    };
+
+    async.series(
+        {
+            fetch: fetch_latest_json
+          , check: codebase.check
+          , pull : codebase.pull
+          , npm  : codebase.npm
+          , build: codebase.build
+          , copy : codebase.copy_to_serve
+          , show : codebase.show_site
+        },
+        function (err, results) {
+            if (err) {
+                error(err);
+                throw err;
+            }
+
+            log('Successfully built: ', results);
+        }
+    );
     // put into module
     //
     // make contentful_to_files a module
@@ -87,7 +116,8 @@ server.register(Basic, function (err) {
                 else {
                     reply().code(204);
                     log('Build triggered from `%s` webhook', request.auth.credentials.name);
-                    trigger_build(request.auth.credentials.name);
+
+                    trigger_build(request.auth.credentials.name, config);
                 }
             }
             else {

@@ -3,7 +3,6 @@ var debug = require('debug');
 var log   = debug('metal-forge');
 var error = debug('metal-forge:error');
 
-log('still goes to stdout, but via console.info now');
 var Hapi   = require('hapi');
 var Basic  = require('hapi-auth-basic');
 var server = new Hapi.Server();

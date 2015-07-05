@@ -33,7 +33,6 @@ var trigger_build = function (webhook_name, config) {
           , npm  : codebase.npm
           , build: codebase.build
           , copy : codebase.copy_to_serve
-          , show : codebase.show_site
         },
         function (err, results) {
             if (err) {
@@ -162,4 +161,3 @@ server.start(function () {
     'use strict';
     console.log('Listening on port: %s', port);
 });
-

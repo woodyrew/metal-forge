@@ -52,7 +52,7 @@ var contentful_to_files = function (config) {
     var process_contentful = function (callback) {
         Object.keys(config.space.content_types).forEach(function(content_name) {
             var content_type = config.space.content_types[content_name];
-            var filepath = path.resolve(__dirname, config.space.location_to_store + content_name + '.json');
+            var filepath = path.resolve(config.space.location_to_store + content_name + '.json');
 
             // console.log("content_type", content_type, "content_name", content_name);
             // Get Assets using callback interface

@@ -1,3 +1,7 @@
+var debug  = require('debug');
+var log    = debug('builder');
+var error  = debug('builder:error');
+
 var cmd    = require('child_process');
 var path   = require('path');
 var moment = require('moment');
@@ -9,13 +13,13 @@ var cd = 'cd ' + config.path + ' && ';
 var run_command = function (comment, command, callback) {
     'use strict';
 
+    log(comment, command);
     command = "echo '" + comment + "'; " + command;
-    cmd.exec(command, function (error, stdout, stderr) {
-        console.log(stdout);
-        console.log('stderr:\n' + stderr);
+
+    cmd.exec(command, function (err, stdout, stderr) {
 
         if (error !== null) {
-            console.log('exec error: ' + error, stderr);
+            error('exec error: ' + err, stderr);
             callback(error);
         }
         else {
@@ -61,14 +65,6 @@ var build = function (callback) {
     run_command(comment, command, callback);
 };
 
-var show_site = function (callback) {
-    'use strict';
-    var comment = 'Show the files that were built';
-    var command = 'tree ./site';
-
-    run_command(comment, command, callback);
-};
-
 var copy_to_serve = function (callback) {
     'use strict';
     var comment = 'Copy files to serve';
@@ -76,13 +72,14 @@ var copy_to_serve = function (callback) {
     var now = moment().format('YYYY-MM-DD_HH-mm');
     var dest_path = path.resolve(__dirname, '../site/' + now);
     var live_path = path.resolve(__dirname, '../site/live');
+
+    // create a new directory, copy files to it and link to it.
     var command = 'mkdir -p ' + dest_path + ' && cp -R ' + config.path + 'site/* ' + dest_path;
-    command += ' && ln -s ' + dest_path + ' ' + live_path;
-    console.log('command', command);
+    // ln -sfn replaces a symlink for a directory
+    command += ' && ln -sfn ' + dest_path + ' ' + live_path;
 
     run_command(comment, command, callback);
 };
-
 
 
 module.exports = {
@@ -90,6 +87,5 @@ module.exports = {
   , pull         : pull
   , npm          : npm
   , build        : build
-  , show_site    : show_site
   , copy_to_serve: copy_to_serve
 };

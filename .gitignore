@@ -36,5 +36,4 @@ store/*
 builder/*
 
 # static content
-site
-public
+site/*

@@ -18,7 +18,7 @@ var run_command = function (comment, command, callback) {
 
     cmd.exec(command, function (err, stdout, stderr) {
 
-        if (error !== null) {
+        if (err !== null) {
             error('exec error: ' + err, stderr);
             callback(error);
         }

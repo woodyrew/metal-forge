@@ -7,6 +7,7 @@ log('still goes to stdout, but via console.info now');
 var Hapi   = require('hapi');
 var Basic  = require('hapi-auth-basic');
 var server = new Hapi.Server();
+
 var config = require('./config.json');
 var port   = process.env.PORT || 5000;
 
@@ -40,21 +41,13 @@ var trigger_build = function (webhook_name, config) {
                 throw err;
             }
 
-            log('Successfully built: ', results);
+            //log('Successfully built: ', results);
         }
     );
-    // put into module
-    //
-    // make contentful_to_files a module
-    // archive existing files to store/archive/{yyyy-mm-dd_hh-mm-ss}/*.json
-    // NEVER overwrite with empty files
-    // call contentful_to_files
-    //
-    // run builder_codebase
-    //
-    // copy files from build codebase to site/{yyyy-mm-dd_hh-mm-ss}
-    // repoint site/live symlink to latest build
-    // keep latest 20
+    // TODO: archive existing files to store/archive/{yyyy-mm-dd_hh-mm-ss}/*.json
+    // TODO: NEVER overwrite with empty files
+
+    // TODO: keep latest 20
 };
 
 
@@ -136,6 +129,15 @@ server.register(Basic, function (err) {
             }
         }
     });
+    // if (config.site.custom404) {
+    //     server.route({
+    //         method : '*'
+    //       , path   : '/{p*}' // catch-all path
+    //       , handler: function (request, reply) {
+    //             reply.file('site/live/404.html').code(404);
+    //         }
+    //     });
+    // }
 });
 
 Object.keys(config.webhooks).forEach(function (username) {

@@ -1,5 +1,5 @@
 {
-  "ignore": ["site/*,store/*"],
-  "ext": "js,less,json,hbs,md",
+  "ignore": ["site/*", "store/*", "builders/*"],
+  "ext": "js",
   "delay": "200ms"
 }

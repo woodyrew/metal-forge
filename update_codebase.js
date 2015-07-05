@@ -1,21 +1,15 @@
-// var cmd    = require("child_process");
 var async  = require('async');
 
 var codebase = require('./modules/builder_codebase');
-// var config = require("./config.json").builder;
 
 
-
-
-
-// an example using an object instead of an array
 async.series(
     {
         check: codebase.check
       , pull : codebase.pull
       , npm  : codebase.npm
       , build: codebase.build
-      , show : codebase.show_site
+      , copy : codebase.copy_to_serve
     },
     function (err, results) {
         'use strict';

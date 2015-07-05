@@ -1,8 +1,10 @@
-// var path = require('path');
+var path = require('path');
+var cc    = require('config-multipaas');
 var debug = require('debug');
 var log   = debug('metal-forge');
 var error = debug('metal-forge:error');
 
+var async  = require('async');
 var Hapi   = require('hapi');
 var Basic  = require('hapi-auth-basic');
 var server = new Hapi.Server();
@@ -10,20 +12,22 @@ var server = new Hapi.Server();
 var config = require('./config.json');
 var port   = process.env.PORT || 5000;
 
-server.connection({ port: port });
+var codebase = require('./modules/builder_codebase');
+// var contentful_to_files = require('./modules/contentful_to_files');
+var fetch_latest_json = require('./modules/contentful_to_files')(config.contentful);
+var init_codebase = require('./modules/init_codebase')(config.builder);
 
-var trigger_build = function (webhook_name, config) {
+
+var conf = cc();
+server.connection({
+	address: conf.get('IP')
+  , port   : conf.get('PORT')
+});
+
+
+var trigger_build = function (webhook_name) {
     'use strict';
     log('Building... Triggered by %s', webhook_name);
-
-    var async  = require('async');
-    var codebase = require('./modules/builder_codebase');
-    var contentful_to_files = require('./modules/contentful_to_files');
-
-    var fetch_latest_json = function (callback) {
-        var process_files = contentful_to_files(config.contentful);
-        process_files(callback);
-    };
 
     async.series(
         {
@@ -50,11 +54,11 @@ var trigger_build = function (webhook_name, config) {
 };
 
 
-
 if (!config.webhooks) {
     throw new Error("webhooks isn't defined in `config.json`");
 }
 
+server.connection({ port: port });
 
 var validate = function (username, password, callback) {
     'use strict';
@@ -82,6 +86,13 @@ server.register(Basic, function (err) {
         throw new Error(err);
     }
 
+    server.route({
+        method : 'GET'
+      , path   : '/status'
+      , handler: function (request, reply) {
+            reply({'status': 'ok'});
+        }
+    });
     server.auth.strategy('simple', 'basic', { validateFunc: validate });
     server.route({
         method : 'POST'
@@ -128,6 +139,7 @@ server.register(Basic, function (err) {
             }
         }
     });
+
     // if (config.site.custom404) {
     //     server.route({
     //         method : '*'
@@ -160,5 +172,26 @@ Object.keys(config.webhooks).forEach(function (username) {
 
 server.start(function () {
     'use strict';
-    console.log('Listening on port: %s', port);
+    console.log('Server started at: ' + server.info.uri);
 });
+
+
+
+
+async.series(
+    {
+        clone: init_codebase
+      , fetch: fetch_latest_json
+      , npm  : codebase.npm
+      , build: codebase.build
+      , copy : codebase.copy_to_serve
+    },
+    function (err, results) {
+        if (err) {
+            error(err);
+            throw err;
+        }
+
+        //log('Successfully built: ', results);
+    }
+);

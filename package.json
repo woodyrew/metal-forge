@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "async": "^1.2.1",
+    "config-multipaas": "^0.1.0",
     "contentful": "^1.1.1",
     "contentful-metalsmith": "^0.1.0",
     "debug": "^2.2.0",

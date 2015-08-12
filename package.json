@@ -13,19 +13,11 @@
     "async": "^1.2.1",
     "config-multipaas": "^0.1.0",
     "contentful": "^1.1.1",
-    "contentful-metalsmith": "^0.1.0",
     "debug": "^2.2.0",
     "handlebars": "^3.0.3",
+    "handlebars.moment": "^1.0.3",
     "hapi": "^8.6.1",
     "hapi-auth-basic": "^2.0.0",
-    "metalsmith": "^1.7.0",
-    "metalsmith-collections": "^0.7.0",
-    "metalsmith-debug": "0.0.2",
-    "metalsmith-less": "^2.0.0",
-    "metalsmith-markdown": "^0.2.1",
-    "metalsmith-permalinks": "^0.4.0",
-    "metalsmith-templates": "^0.7.0",
-    "metalsmith-webpack": "^1.0.1",
     "moment": "^2.10.3"
   }
 }

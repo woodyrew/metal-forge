@@ -10,7 +10,6 @@ var Basic  = require('hapi-auth-basic');
 var server = new Hapi.Server();
 
 var config = require('./config.json');
-var port   = process.env.PORT || 5000;
 
 var codebase = require('./modules/builder_codebase');
 // var contentful_to_files = require('./modules/contentful_to_files');
@@ -57,8 +56,6 @@ var trigger_build = function (webhook_name) {
 if (!config.webhooks) {
     throw new Error("webhooks isn't defined in `config.json`");
 }
-
-server.connection({ port: port });
 
 var validate = function (username, password, callback) {
     'use strict';
@@ -164,7 +161,7 @@ Object.keys(config.webhooks).forEach(function (username) {
             curl_parts.push('--header "' + key + ': ' + element + '"');
         });
     }
-    curl_parts.push('localhost:' + port + '/' + config.path_to_webhook + '/' + webhook.path);
+    curl_parts.push(server.info.uri + '/' + config.path_to_webhook + '/' + webhook.path);
 
     console.log('Test `' + webhook.name + '` Webhook with:\n' + curl_parts.join(' ') + '\n');
 });

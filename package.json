@@ -1,9 +1,11 @@
 {
   "name": "metal-forge",
-  "description": "Deployment tool getting data from Contenful, Building a static site and serving with HAPI",
+  "description": "Deployment tool getting data from Contenful, Building a static site and serving with ExpressJS",
   "version": "0.2.0",
   "main": "server.js",
   "scripts": {
+    "start": "NODE_PATH=$NODE_PATH:./modules node .",
+    "dev": "DEBUG=* NODE_PATH=$NODE_PATH:./modules nodemon .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "private": true,
@@ -11,13 +13,13 @@
   "license": "ISC",
   "dependencies": {
     "async": "^1.2.1",
+    "basic-auth": "^1.0.3",
     "config-multipaas": "^0.1.0",
     "contentful": "^1.1.1",
     "debug": "^2.2.0",
+    "express": "^4.13.3",
     "handlebars": "^3.0.3",
     "handlebars.moment": "^1.0.3",
-    "hapi": "^8.6.1",
-    "hapi-auth-basic": "^2.0.0",
     "moment": "^2.10.3"
   }
 }

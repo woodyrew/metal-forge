@@ -29,7 +29,6 @@ var trigger_build = function (webhook_name) {
         function (err, results) {
             if (err) {
                 error(err);
-                throw err;
             }
 
             // log('Successfully built: ', results);
@@ -61,6 +60,7 @@ var init_build = function () {
         {
             clone: init_codebase
           , fetch: fetch_latest_json
+          , pull : codebase.pull
           , npm  : codebase.npm
           , build: codebase.build
           , copy : codebase.copy_to_serve
@@ -68,7 +68,7 @@ var init_build = function () {
         function (err, results) {
             if (err) {
                 error(err);
-                throw err;
+                throw new Error(err);
             }
 
             // log('Successfully built: ', results);

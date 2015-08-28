@@ -4,7 +4,6 @@ var error = debug('metal-forge_webhooks:error');
 
 var express = require('express');
 var router = express.Router();
-var path   = require('path');
 
 var basic_auth = require('basic-auth');
 
@@ -12,7 +11,7 @@ var basic_auth = require('basic-auth');
 var build_tasks = require('build_tasks');
 
 // Get config
-var config = require(path.join(process.cwd(), 'config.json'));
+var config = require('../../config.json');
 
 var unauthorised = function (response) {
     'use strict';

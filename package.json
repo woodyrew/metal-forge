@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "NODE_PATH=$NODE_PATH:./modules node .",
-    "dev": "DEBUG=* NODE_PATH=$NODE_PATH:./modules nodemon .",
+    "dev": "DEV=1 NODE_PATH=$NODE_PATH:./modules nodemon .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "private": true,
@@ -20,6 +20,7 @@
     "express": "^4.13.3",
     "handlebars": "^3.0.3",
     "handlebars.moment": "^1.0.3",
+    "lodash": "^3.10.1",
     "moment": "^2.10.3"
   }
 }

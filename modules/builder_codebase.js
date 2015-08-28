@@ -52,7 +52,7 @@ var pull = function (callback) {
 var npm = function (callback) {
     'use strict';
     var comment = 'Install dependancies';
-    var command = cd + 'npm install';
+    var command = cd + 'npm install && echo "Installed Dependancies"';
 
     run_command(comment, command, callback);
 };

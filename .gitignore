@@ -27,13 +27,16 @@ build/Release
 node_modules
 
 # API config file
-config.json
+/config.json
+
+# Config file
+/redirects.json
 
 # contentful data
-store/*
+/store/*
 
 # build codebase
-builder/*
+/builder/*
 
 # static content
-site/*
+/site/*

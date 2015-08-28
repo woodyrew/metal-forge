@@ -48,6 +48,20 @@
 }
 ```
 
+`./redirects.json` is used for 301 redirects, e.g. Migrating a site.  Example:
+```json
+[
+	{
+		"source": "/?lang=en",
+		"target": "/"
+	},
+	{
+		"source": "/some/old/path/index.html",
+		"target": "/new/awesome/path/"
+	}
+]
+```
+
 # Using Forever
 ```bash
 $ forever start -c "npm start" ./

@@ -1,3 +1,8 @@
+// Set Debugging up:
+if (process.env.DEV && !process.env.DEBUG) {
+    process.env.DEBUG = '*';
+}
+
 // var path = require('path');
 var cc    = require('config-multipaas');
 var debug = require('debug');

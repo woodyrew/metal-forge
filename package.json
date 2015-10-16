@@ -1,7 +1,7 @@
 {
   "name": "metal-forge",
   "description": "Deployment tool getting data from Contenful, Building a static site and serving with ExpressJS",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "main": "server.js",
   "scripts": {
     "start": "NODE_PATH=$NODE_PATH:./modules node .",

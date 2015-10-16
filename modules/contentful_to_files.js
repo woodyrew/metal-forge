@@ -56,7 +56,7 @@ var contentful_to_files = function (config) {
 
             // console.log("content_type", content_type, "content_name", content_name);
             // Get Assets using callback interface
-            client.entries({'content_type': content_type}, function(err, entries) {
+            client.entries({'content_type': content_type, limit: 1000}, function(err, entries) {
                 if (err) {
                     error(err);
                     callback(err);

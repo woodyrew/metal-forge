@@ -1,7 +1,7 @@
 {
   "name": "metal-forge",
   "description": "Deployment tool getting data from Contenful, Building a static site and serving with ExpressJS",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "main": "server.js",
   "scripts": {
     "prestart": "npm install",

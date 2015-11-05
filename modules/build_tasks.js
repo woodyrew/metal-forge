@@ -9,9 +9,12 @@ var error = debug('metal-forge_process:error');
 // Get config
 var config = require(path.join(process.cwd(), 'config.json'));
 
+var cmd               = require('child_process');
 var codebase          = require('builder_codebase');
 var fetch_latest_json = Promise.promisify(require('contentful_to_files')(config.contentful));
 var init_codebase     = require('init_codebase')(config.builder);
+
+var site_path = path.join(process.cwd(), 'site');
 
 
 var trigger_build = function (webhook_name) {
@@ -32,7 +35,12 @@ var trigger_build = function (webhook_name) {
                 function (err, results) {
                     if (err) {
                         error(err);
+                        return;
                     }
+                    var command = 'find ' + site_path + '/* -maxdepth 0 -name ????-??-??_??-?? -type d -ctime +7 -exec rm -rf {} \\;';
+                    log('Remove directories older than 7 days with pattern - ', command);
+
+                    cmd.exec(command);
 
                     log('%s Build Complete: %o', webhook_name, results);
                 }
@@ -42,7 +50,6 @@ var trigger_build = function (webhook_name) {
     // TODO: archive existing files to store/archive/{yyyy-mm-dd_hh-mm-ss}/*.json
     // TODO: NEVER overwrite with empty files
 
-    // TODO: keep latest 20
 };
 
 var init_build = function () {

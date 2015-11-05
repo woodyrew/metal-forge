@@ -31,12 +31,11 @@ var run_command = function (comment, command, callback) {
     });
 };
 
-
 var check = function (callback) {
     'use strict';
     var comment = 'Check the codebase exists and is on master.';
     var command = cd + "git branch | grep '* master' && echo 'On master'";
-     // master && git fetch origin master && git status";
+    // master && git fetch origin master && git status";
 
     run_command(comment, command, callback);
 };
@@ -60,7 +59,7 @@ var npm = function (callback) {
 var build = function (callback) {
     'use strict';
     var comment = 'Build';
-    var command = cd + 'DEBUG=-* npm start';
+    var command = cd + 'NODE_ENV=build DEBUG=-* npm start';
 
     run_command(comment, command, callback);
 };

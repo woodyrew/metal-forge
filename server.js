@@ -1,5 +1,5 @@
 // Set Debugging up:
-if (process.env.DEV && !process.env.DEBUG) {
+if (process.env.NODE_ENV === 'development' && !process.env.DEBUG) {
     process.env.DEBUG = '*';
 }
 

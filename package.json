@@ -4,8 +4,9 @@
   "version": "0.4.1",
   "main": "server.js",
   "scripts": {
+    "prestart": "npm install",
     "start": "NODE_PATH=$NODE_PATH:./modules node .",
-    "dev": "DEV=1 NODE_PATH=$NODE_PATH:./modules nodemon .",
+    "dev": "NODE_ENV=development NODE_PATH=$NODE_PATH:./modules nodemon .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "private": true,
@@ -14,6 +15,7 @@
   "dependencies": {
     "async": "^1.2.1",
     "basic-auth": "^1.0.3",
+    "bluebird": "^3.0.5",
     "config-multipaas": "^0.1.0",
     "contentful": "^1.1.1",
     "debug": "^2.2.0",

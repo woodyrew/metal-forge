@@ -10,7 +10,7 @@ var redirects = require('./redirects');
 var config = require(path.join(process.cwd(), 'config.json'));
 
 router.get('/status', function (req, res) {
-    res.send({status: 'ok'});
+    res.sendStatus(JSON.stringify({status: 'ok'}));
 });
 
 // Webhooks

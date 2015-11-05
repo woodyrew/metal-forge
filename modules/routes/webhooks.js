@@ -16,7 +16,7 @@ var config = require('../../config.json');
 var unauthorised = function (response) {
     'use strict';
     response.set('WWW-Authenticate', 'Basic realm=Authorization Required');
-    return response.send(401);
+    return response.sendStatus(401);
 };
 
 
@@ -38,7 +38,7 @@ router.use('/:webhook_path', function (req, res) {
                 log('Checking for request header - %s: %s', header, content);
                 if (req.headers[header] !== content) {
                     error('Missing Headers. Headers passed: %o', req.headers);
-                    return res.send(404);
+                    return res.sendStatus(404);
                 }
             }
         }
@@ -61,10 +61,10 @@ router.use('/:webhook_path', function (req, res) {
 
         // Success
         build_tasks.trigger_build(webhook.name);
-        return res.send(204);
+        return res.sendStatus(204);
     }
     else {
-        return res.send(404);
+        return res.sendStatus(404);
     }
 
 

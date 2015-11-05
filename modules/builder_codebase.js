@@ -60,7 +60,7 @@ var npm = function (callback) {
 var build = function (callback) {
     'use strict';
     var comment = 'Build';
-    var command = cd + 'DEBUG=-* node ./';
+    var command = cd + 'DEBUG=-* npm start';
 
     run_command(comment, command, callback);
 };

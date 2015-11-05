@@ -32,7 +32,7 @@ var server = app.listen(conf.get('PORT'), function () {
     var host = server.address().address;
     var port = server.address().port;
 
-    console.log('Example app listening at http://%s:%s', host, port);
+    console.log('App listening at http://%s:%s', host, port);
 });
 
 // Output the cURL commands for testing webhooks
@@ -54,7 +54,7 @@ if (process.env.DEBUG) {
         }
         curl_parts.push(server.address().address + ':' + server.address().port + '/' + config.path_to_webhook + '/' + path);
 
-        log('Test `' + webhook.name + '` Webhook with:\n' + curl_parts.join(' ') + '\n');
+        console.log('Test `' + webhook.name + '` Webhook with:\n' + curl_parts.join(' ') + '\n');
     });
 }
 

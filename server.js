@@ -36,27 +36,25 @@ var server = app.listen(conf.get('PORT'), function () {
 });
 
 // Output the cURL commands for testing webhooks
-if (process.env.DEBUG) {
-    Object.keys(config.webhooks).forEach(function (path) {
-        'use strict';
-        var webhook = config.webhooks[path];
-        var curl_parts = [
-            'curl -X ' + webhook.method
-        ];
-        if (webhook.username && webhook.password) {
-            curl_parts.push('-u ' + webhook.username + ':' + webhook.password);
-        }
-        if (webhook.expected_header) {
-            Object.keys(webhook.expected_header).forEach(function (key) {
-                var element = webhook.expected_header[key];
-                curl_parts.push('--header "' + key + ': ' + element + '"');
-            });
-        }
-        curl_parts.push(server.address().address + ':' + server.address().port + '/' + config.path_to_webhook + '/' + path);
+Object.keys(config.webhooks).forEach(function (path) {
+    'use strict';
+    var webhook = config.webhooks[path];
+    var curl_parts = [
+        'curl -X ' + webhook.method
+    ];
+    if (webhook.username && webhook.password) {
+        curl_parts.push('-u ' + webhook.username + ':' + webhook.password);
+    }
+    if (webhook.expected_header) {
+        Object.keys(webhook.expected_header).forEach(function (key) {
+            var element = webhook.expected_header[key];
+            curl_parts.push('--header "' + key + ': ' + element + '"');
+        });
+    }
+    curl_parts.push(server.address().address + ':' + server.address().port + '/' + config.path_to_webhook + '/' + path);
 
-        console.log('Test `' + webhook.name + '` Webhook with:\n' + curl_parts.join(' ') + '\n');
-    });
-}
+    console.log('Test `' + webhook.name + '` Webhook with:\n' + curl_parts.join(' ') + '\n');
+});
 
 // Initialise codebase and build
 build_tasks.init_build();

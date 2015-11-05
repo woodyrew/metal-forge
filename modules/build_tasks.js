@@ -19,7 +19,7 @@ var site_path = path.join(process.cwd(), 'site');
 
 var trigger_build = function (webhook_name) {
     'use strict';
-    console.log('Building... Triggered by %s', webhook_name);
+    console.log('Building... Triggered by ', webhook_name);
 
     fetch_latest_json()
         .catch(error)
@@ -81,7 +81,8 @@ var init_build = function () {
                 error(err);
             }
 
-            console.log('Initial build complete: %o', results);
+            log('Initial build complete: %o', results);
+            console.log('Initial build complete');
         }
     );
 };

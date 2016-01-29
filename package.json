@@ -16,7 +16,6 @@
     "async": "^1.2.1",
     "basic-auth": "^1.0.3",
     "bluebird": "^3.0.5",
-    "config-multipaas": "^0.1.0",
     "contentful": "^1.1.1",
     "debug": "^2.2.0",
     "express": "^4.13.3",
@@ -24,5 +23,8 @@
     "handlebars.moment": "^1.0.3",
     "lodash": "^3.10.1",
     "moment": "^2.10.3"
+  },
+  "devDependencies": {
+    "nodemon": "latest"
   }
 }
